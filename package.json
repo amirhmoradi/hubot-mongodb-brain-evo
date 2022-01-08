@@ -1,0 +1,32 @@
+{
+  "name": "hubot-mongodb-brain-evo",
+  "version": "1.0.0",
+  "author": {
+    "name": "Amir Moradi",
+    "url": "https://amirhmoradi.com"
+  },
+  "description": "MongoDB brain evo for Hubot. Supports MongoLab and MongoHQ on heroku",
+  "main": "index.js",
+  "scripts": {
+  },
+  "keywords": [
+    "hubot",
+    "hubot-scripts",
+    "brain",
+    "mongodb"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amirhmoradi/hubot-mongodb-brain-evo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/amirhmoradi/hubot-mongodb-brain-evo/issues"
+  },
+  "dependencies": {
+    "mongodb": "*"
+  },
+  "devDependencies": {
+  },
+  "homepage": "https://github.com/amirhmoradi/hubot-mongodb-brain-evo"
+}
