@@ -80,6 +80,7 @@ class MongoDB {
       dataKeys.forEach((key) => {
         bulkWriteOperations.push({updateOne: { filter: key, update: {$set: data[key]}, upsert: true}});
       });
+      this.robot.logger.info('MongoDB Operations:', bulkWriteOperations);
       await this.collection.bulkWrite(bulkWriteOperations)
                             .then( updateResults => {
                               this.robot.logger.info('MongoDB updated records:' + updateResults);
