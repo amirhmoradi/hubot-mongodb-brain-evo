@@ -35,13 +35,16 @@ class MongoDB {
   }
 
   async _connect() {
-    this.client = await MongoClient.connect(this.url, {
-      useNewUrlParser: true,
-    });
+    this.client = await MongoClient.connect(this.url);
     this.db = this.client.db(this.dbName);
     try {
-      this.db.createCollection(this.brainCollection);
-    } catch (e) {}
+      this.db.createCollection(this.brainCollection, function(err, res) {
+        if (err) throw err;
+        this.robot.logger.info('MongoDB Collection Created.');
+      });
+    } catch (e) {
+      this.robot.logger.error('MongoDB Create Collection Error:' + e);
+    }
     this.collection = this.db.collection(this.brainCollection);
     this.robot.logger.info('MongoDB connected');
   }
@@ -72,12 +75,13 @@ class MongoDB {
     if (dataKeys.length > 0) {
       this.robot.brain.setAutoSave(false);
 
-      const bulk = this.collection.initializeUnorderedBulkOp();
-  
+      const bulkWriteOperations = [];
       dataKeys.forEach((key) => {
-        bulk.find.updateOne(key, { $set: data[key]}, { upsert: true });
+        bulkWriteOperations.push({ filter: key, update: {$set: data[key]}, upsert: true});
       });
-      await bulk.execute();
+      const updateResults = await this.collection.bulkWrite(bulkWriteOperations);
+      this.robot.logger.info('MongoDB updated records:' + updateResults);
+      
       this.robot.brain.setAutoSave(true);
     }
   }
