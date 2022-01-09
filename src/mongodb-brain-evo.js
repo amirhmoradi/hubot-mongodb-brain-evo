@@ -38,14 +38,16 @@ class MongoDB {
     this.client = await MongoClient.connect(this.url);
     this.db = this.client.db(this.dbName);
     try {
-      this.db.createCollection(this.brainCollection, function(err, res) {
-        if (err) throw err;
-        this.robot.logger.info('MongoDB Collection Created.');
-      });
+      this.db.createCollection(this.brainCollection)
+              .then(collection => {
+                this.collection = collection;
+              })
+              .catch(reason => {
+                this.robot.logger.error('MongoDB Create Collection Error:' + reason);
+              });
     } catch (e) {
       this.robot.logger.error('MongoDB Create Collection Error:' + e);
     }
-    this.collection = this.db.collection(this.brainCollection);
     this.robot.logger.info('MongoDB connected');
   }
 
@@ -78,7 +80,7 @@ class MongoDB {
 
       const bulkWriteOperations = [];
       dataKeys.forEach((key) => {
-        bulkWriteOperations.push({updateOne: { filter: key, update: {$set: data[key]}, upsert: true}});
+        bulkWriteOperations.push({updateOne: { filter: {key}, update: {$set: data[key]}, upsert: true}});
       });
       this.robot.logger.info('MongoDB Operations:', bulkWriteOperations);
       await this.collection.bulkWrite(bulkWriteOperations)
