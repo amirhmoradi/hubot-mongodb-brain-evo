@@ -38,7 +38,7 @@ class MongoDB {
     this.client = await MongoClient.connect(this.url);
     this.db = this.client.db(this.dbName);
     try {
-      this.db.createCollection(this.brainCollection)
+      this.db.createCollection(this.brainCollection, {strict: false})
               .then(collection => {
                 this.collection = collection;
               })
