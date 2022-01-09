@@ -72,6 +72,7 @@ class MongoDB {
 
   async save(data) {
     const dataKeys = Object.keys(data || {});
+    this.robot.logger.info('MongoDB save caught:' + dataKeys, data);
     if (dataKeys.length > 0) {
       this.robot.brain.setAutoSave(false);
 
@@ -79,8 +80,14 @@ class MongoDB {
       dataKeys.forEach((key) => {
         bulkWriteOperations.push({updateOne: { filter: key, update: {$set: data[key]}, upsert: true}});
       });
-      const updateResults = await this.collection.bulkWrite(bulkWriteOperations);
-      this.robot.logger.info('MongoDB updated records:' + updateResults);
+      await this.collection.bulkWrite(bulkWriteOperations)
+                            .then( updateResults => {
+                              this.robot.logger.info('MongoDB updated records:' + updateResults);
+                            })
+                            .catch (reason => {
+                              this.robot.logger.error('MongoDB update error:' + reason);
+                            });
+      
       
       this.robot.brain.setAutoSave(true);
     }
