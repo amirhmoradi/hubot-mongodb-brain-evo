@@ -6,10 +6,23 @@ Supports custom collection and db name from env vars.
 ## Configuration:
 ( VAR || VAR2 ... || default_value_if_not_set # More info)
 
+Database URL:
+
 `MONGODB_URL` || `MONGOLAB_URI` || `MONGOHQ_URL` || `'mongodb://localhost:27017/hubot'`
-`MONGODB_SAVE_INTERVAL` || `10` # save interval, in seconds
-`MONGODB_BRAIN_COLLECTION` || `brain`
+
+DB Name:
+
 `MONGODB_DB_NAME` || `<VAL_EXTRACTED_FROM_MONGODB_URL_PATH>` || `hubot`
+
+Collection name:
+
+`MONGODB_BRAIN_COLLECTION` || `brain`
+
+Save Interval:
+
+`MONGODB_SAVE_INTERVAL` || `10` # save interval, in seconds
+
+
 
 ## Doc
 ### difference betweet `redis-brain`
