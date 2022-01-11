@@ -1,9 +1,18 @@
-# hubot-mongodb-brain
-MongoDB brain for Hubot. Support MongoLab and MongoHQ on Heroku.
+# hubot-mongodb-brain-evo
+MongoDB brain evo for Hubot. Supports multiple configuration options. Works with latest Mongo, Rocket.Chat, Hubot.
+Supports MongoLab and MongoHQ on heroku for Mongo URLs.
+Supports custom collection and db name from env vars.
 
-- https://github.com/mohemohe/hubot-mongodb-brain
+## Configuration:
+( VAR || VAR2 ... || default_value_if_not_set # More info)
 
-## difference betweet `redis-brain`
+`MONGODB_URL` || `MONGOLAB_URI` || `MONGOHQ_URL` || `'mongodb://localhost:27017/hubot'`
+`MONGODB_SAVE_INTERVAL` || `10` # save interval, in seconds
+`MONGODB_BRAIN_COLLECTION` || `brain`
+`MONGODB_DB_NAME` || `<VAL_EXTRACTED_FROM_MONGODB_URL_PATH>` || `hubot`
+
+## Doc
+### difference betweet `redis-brain`
 
 Hubot's default `redis-brain` saves all data into one large blob (It's not using Redis as KVS) and write it every 20 seconds. So it exceeds `maxmemory` of Redis.
 
@@ -14,26 +23,16 @@ Hubot's default `redis-brain` saves all data into one large blob (It's not using
 
 ## Install
 
-    % yarn add https://github.com/mohemohe/hubot-mongodb-brain.git
+### env var:
+Add `hubot-mongodb-brain-evo` to your `EXTERNAL_SCRIPTS` variable
 
+OR
 ### edit `external-script.json`
 
 ```json
-[ "hubot-mongodb-brain" ]
+[ "hubot-mongodb-brain-evo" ]
 ```
 
 ### enable mongolab on heroku
 
     % heroku addons:create mongolab
-
-## Develop
-
-### Debug
-
-    % export HUBOT_LOG_LEVEL=debug
-
-
-### Test
-
-    % npm install
-    % npm test

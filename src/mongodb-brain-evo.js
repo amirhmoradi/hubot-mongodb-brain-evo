@@ -7,7 +7,7 @@
 //   "mongodb": "*"
 //
 // Configuration:
-// ( VAR || VAR2 ... || default_value_if_not_set )
+// ( VAR || VAR2 ... || default_value_if_not_set # More info)
 //   MONGODB_URL || MONGOLAB_URI || MONGOHQ_URL || 'mongodb://localhost:27017/hubot'
 //   MONGODB_SAVE_INTERVAL || 10
 //   MONGODB_BRAIN_COLLECTION || brain
