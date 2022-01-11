@@ -1,11 +1,11 @@
 {
   "name": "hubot-mongodb-brain-evo",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "author": {
     "name": "Amir Moradi",
     "url": "https://amirhmoradi.com"
   },
-  "description": "MongoDB brain evo for Hubot. Supports MongoLab and MongoHQ on heroku",
+  "description": "MongoDB brain evo for Hubot. Supports multiple configuration options. Works with latest Mongo, Rocket.Chat, Hubot.",
   "main": "index.js",
   "scripts": {
   },
